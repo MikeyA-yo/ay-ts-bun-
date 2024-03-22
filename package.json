@@ -1,0 +1,15 @@
+{
+  "name": "buntest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "out.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "ay-bun" : "./ay.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
