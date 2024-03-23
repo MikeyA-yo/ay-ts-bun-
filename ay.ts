@@ -1,8 +1,8 @@
 #!/usr/bin/env bun
-import * as fs from 'node:fs';
 const out = __dirname+'/out.js';
-const programName = process.argv[2];
-const program = fs.readFileSync(programName, 'utf-8');
+const programName = Bun.argv[2];
+const bunfile = Bun.file(programName);
+const program = await bunfile.text();
 let code;
 
 // this function breaks the whole program into lines
