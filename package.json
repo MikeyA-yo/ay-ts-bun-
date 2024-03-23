@@ -2,7 +2,13 @@
   "name": "buntest",
   "version": "1.0.0",
   "description": "",
-  "main": "out.js",
+  "main": "./ay.ts",
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -3,7 +3,7 @@ const out = __dirname+'/out.js';
 const programName = Bun.argv[2];
 const bunfile = Bun.file(programName);
 const program = await bunfile.text();
-let code;
+let code:string;
 
 // this function breaks the whole program into lines
 function parse(codes:any): string[]{
@@ -14,7 +14,7 @@ function tokenize(code:string): string[]{
    return code.split(/\s+/);
 }
 // this function breaks a quote statement apart
-function parseStatement(statement): string[] {
+function parseStatement(statement: any): string[] {
     const regex =/"([^"]+)"|(\w+)|([=\[\]\(\){}÷*+\-])/g ; // Matches either a quoted string or a word /("[^"]+"|\w+)/g
     const matches = statement.match(regex);
     return matches;
