@@ -22,7 +22,7 @@ function parseStatement(statement: any): string[] {
 function generateCode(program:any){
      code = "";
      let lines = parse(program)
-     let newLines =lines.filter(line => {
+     let newLines = lines.filter(line => {
        return line !== '\r'
      })
      if(newLines[0].includes('#')){
