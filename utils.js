@@ -46,7 +46,7 @@ function read(out, mode){
   return fs.readFileSync(out, mode);
 }
 function write(path, data){
-  return fs.writeFileSync(path, data);
+  return  Bun.write(path, data);
 }
 function appendFile(path, data){
   return fs.appendFileSync(path, data);
