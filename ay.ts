@@ -65,9 +65,8 @@ function generateCode(program:any){
     })
     return code;
 }
-const math = `const {rand, round, PI, floor, exp, degToRad, radToDeg} = require('./math')\n`;
-const utils = `const {print, timer, Day, interval, read, write, appendFile, dirname} = require('./utils')\n`
-// const AY = `const {AY} = require(__dirname +'/objects/AY')\n`;
+const math = `import { rand, round, PI, floor, exp, degToRad, radToDeg } from './math';\n`;
+const utils = `import { print, timer, Day, interval, read, write, appendFile, dirname } from './utils';\n`
 const m = './objects'+'/'+'AY'
 const AY = `import {AY} from '${m}'\n`
 const exec= ` ${AY} ${math} ${utils}  try {\n${generateCode(program)}}catch(e){\n console.error(e.message);\n}`
@@ -94,35 +93,3 @@ interface VariableDeclarationNode extends ASTNode {
     kind: "PrintStatement";
     expression: ExpressionNode;
   }
-// if(!values[0].includes('(')){
-//     values[0] = `console.log(${values[1]});`;
-//     values[1] = ''
-//    }else{
-//     values[0]=values[0]
-//    }
-// function parseExpression(tokens: string[]): ExpressionNode[] {
-//     if (tokens[0] === '"' && tokens[tokens.length - 1] === '"') {
-//       return [{ kind: "StringLiteral", value: tokens.slice(1, -1).join("") }];
-//     }
-//     throw new Error("Unsupported expression");
-//   }
-//  if (values[0] == 'assign'){
- //   values[0] = 'let';
-//}
-// function parse(tokens: string[]): ASTNode[] {
-//     const ast: ASTNode[] = [];
-//     for (let i = 0; i < tokens.length; i++) {
-//       const token = tokens[i];
-//       if (token === "let") {
-//         const identifier = tokens[++i];
-//         const expression = parseExpression(tokens.slice(i + 1));
-//         ast.push({ kind: "VariableDeclaration", identifier, expression });
-//         i += expression.length; // Skip parsed expression tokens
-//       } else if (token === "print") {
-//         const expression = parseExpression(tokens.slice(i + 1));
-//         ast.push({ kind: "PrintStatement", expression });
-//         i += expression.length; // Skip parsed expression tokens
-//       }
-//     }
-//     return ast;
-//   }
