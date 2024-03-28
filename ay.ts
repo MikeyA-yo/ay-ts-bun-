@@ -67,7 +67,10 @@ function generateCode(program:any){
 }
 const math = `const {rand, round, PI, floor, exp, degToRad, radToDeg} = require('./math')\n`;
 const utils = `const {print, timer, Day, interval, read, write, appendFile, dirname} = require('./utils')\n`
-const exec= ` ${math} ${utils}  try {\n${generateCode(program)}}catch(e){\n console.error(e.message);\n}`
+// const AY = `const {AY} = require(__dirname +'/objects/AY')\n`;
+const m = './objects'+'/'+'AY'
+const AY = `import {AY} from '${m}'\n`
+const exec= ` ${AY} ${math} ${utils}  try {\n${generateCode(program)}}catch(e){\n console.error(e.message);\n}`
 await Bun.write(out, exec );
 require(out);
 
