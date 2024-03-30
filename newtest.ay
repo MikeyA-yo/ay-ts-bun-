@@ -2,3 +2,4 @@ for ( l i = 0; i < 200; i++){
     i % 3 == 0 ? print 'fizz' : i % 5 == 0 ? print 'buzz' : print i
 }
 print(dirname(), AY.type(AY.isAy))
+print AY.os 

@@ -42,7 +42,7 @@ function generateCode(program:any){
     
     newLines.forEach(el => {
         el.includes('}') ? el += '' : el.includes(';') ? el += '': el.includes('}') ? el += '' : el += ';' ;
-        const values = tokenize(el);
+        const values = parseStr(el);
         values[values.length] = '\n';
         for(let i = 0; i < values.length; i++){
             if(values[i] == 'l'){
