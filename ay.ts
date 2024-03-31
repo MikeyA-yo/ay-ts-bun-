@@ -14,7 +14,7 @@ function tokenize(code:string): string[]{
    return code.split(/\s+/);
 }
 //this function is peak asf
-function parseStr(inputString:string) {
+function parser(inputString:string) {
       // Separate the input string into segments
       const segments = inputString.match(/(["'`].*?["'`])|\S+/g);
 
@@ -52,6 +52,17 @@ function parseStr(inputString:string) {
       }
   
       return result;
+}
+//this one different
+function parseStr(inputString:string) {
+    const regex = /(["'`])(.*?)\1|\S+/g;
+    const matches = inputString.match(regex);
+
+    if (matches) {
+        return matches;
+    } else {
+        return [];
+    }
 }
 // this function breaks a quote statement apart
 function parseStatement(statement: any): string[] {
