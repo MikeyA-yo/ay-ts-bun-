@@ -15,14 +15,43 @@ function tokenize(code:string): string[]{
 }
 //this function is peak asf
 function parseStr(inputString:string) {
-    const regex = /(["'`])(.*?)\1|\S+/g;
-    const matches = inputString.match(regex);
+      // Separate the input string into segments
+      const segments = inputString.match(/(["'`].*?["'`])|\S+/g);
 
-    if (matches) {
-        return matches;
-    } else {
-        return [];
-    }
+      if (!segments) return [];
+  
+      const result = [];
+  
+      for (const segment of segments) {
+          if (segment.startsWith('"') || segment.startsWith("'") || segment.startsWith("`")) {
+              // Quoted strings
+              result.push(segment);
+          } else {
+              // Split by parentheses, square brackets, braces, and operators
+              const tokens = segment.split(/([()\[\]{}])/).filter(token => token.trim() !== '');
+  
+              // Combine adjacent parentheses, square brackets, or braces
+              let combinedToken = '';
+              for (const token of tokens) {
+                  if (token === '(' || token === '[' || token === '{' || token === ')' || token === ']' || token === '}') {
+                      if (combinedToken !== '') {
+                          result.push(combinedToken);
+                          combinedToken = '';
+                      }
+                      result.push(token);
+                  } else {
+                      combinedToken += token;
+                  }
+              }
+  
+              // Push any remaining combined token
+              if (combinedToken !== '') {
+                  result.push(combinedToken);
+              }
+          }
+      }
+  
+      return result;
 }
 // this function breaks a quote statement apart
 function parseStatement(statement: any): string[] {
