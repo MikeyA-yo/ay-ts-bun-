@@ -1,7 +1,7 @@
 {
   "name": "buntest",
   "version": "1.0.0",
-  "description": "",
+  "description": "An experimental implementation of the AY JIT compiler",
   "main": "./ay.ts",
   "devDependencies": {
     "@types/bun": "latest"
@@ -15,7 +15,12 @@
   "bin": {
     "ay-bun" : "./ay.ts"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "AY",
+    "Typescript",
+    "Bun",
+    "JIT compiler"
+  ],
+  "author": "Oluwatola Ayomide, CHO inc",
   "license": "ISC"
 }
