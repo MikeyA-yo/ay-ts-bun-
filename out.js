@@ -3,7 +3,7 @@
  import { print, timer, Day, interval, read, write, appendFile, dirname } from './utils';
   try {
 for ( let i = 0; i < 100000; i++ ) { 
-console.log(i)   ; 
+print(i) ; 
 } 
 }catch(e){
  console.error(e.message);

@@ -14,7 +14,7 @@ function tokenize(code:string): string[]{
    return code.split(/\s+/);
 }
 //this function is peak asf
-function parser(inputString:string) {
+function parser(inputString:string):string[] {
       // Separate the input string into segments
       const segments = inputString.match(/(["'`].*?["'`])|\S+/g);
 
@@ -54,7 +54,7 @@ function parser(inputString:string) {
       return result;
 }
 //this one different
-function parseStr(inputString:string) {
+function parseStr(inputString:string):string[] {
     const regex = /(["'`])(.*?)\1|\S+/g;
     const matches = inputString.match(regex);
 
@@ -82,7 +82,10 @@ function generateCode(program:any){
     
     newLines.forEach(el => {
         el.includes('}') ? el += '' : el.includes(';') ? el += '': el.includes('}') ? el += '' : el += ';' ;
-        const values = parseStr(el);
+        let values = parseStr(el);
+        if(el.includes('for (') || el.includes('for(') || el.includes('if(') ||el.includes('if (')){
+            values = parser(el)
+        }
         values[values.length] = '\n';
         for(let i = 0; i < values.length; i++){
             if(values[i] == 'l'){
