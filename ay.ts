@@ -81,7 +81,7 @@ function generateCode(program:any){
      }
     
     newLines.forEach(el => {
-        el.includes('}') ? el += '' : el.includes(';') ? el += '': el.includes('}') ? el += '' : el += ';' ;
+        el.includes('{') ? el += '' : el.includes(';') ? el += '': el.includes('}') ? el += '' : el += ';' ;
         let values = parseStr(el);
         if(el.includes('for (') || el.includes('for(') || el.includes('if(') ||el.includes('if (')){
             values = parser(el)
@@ -125,7 +125,7 @@ const m = './objects'+'/'+'AY'
 const AY = `import {AY} from '${m}'\n`
 const exec= ` ${AY} ${math} ${utils}  try {\n${generateCode(program)}}catch(e){\n console.error(e.message);\n}`
 await Bun.write(out, exec );
-require(out);
+await import(out);
 
 interface ASTNode{
     kind:string;
