@@ -9,7 +9,7 @@ print(dirname(), AY.type(AY.isAy))
 console.log(AY.os)   ; 
 ; 
   ; 
-; 
+// this imports and execute a file; 
 }catch(e){
  console.error(e.message);
 }
