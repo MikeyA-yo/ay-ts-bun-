@@ -1,4 +1,7 @@
 #!/usr/bin/env bun
+
+import type { BunFile } from "bun";
+import  * as fs from "fs"
 const out = __dirname+'/out.js';
 const programName = Bun.argv[2];
 const bunfile = Bun.file(programName);
@@ -70,6 +73,10 @@ function parseStatement(statement: any): string[] {
     const matches = statement.match(regex);
     return matches;
   }
+  async function fileText(f:BunFile){
+    let d = await f.text();
+    return d;
+  }
 function generateCode(program:any){
      code = "";
      let lines = parse(program)
@@ -80,7 +87,7 @@ function generateCode(program:any){
         newLines[0] = ''
      }
     
-    newLines.forEach(el => {
+    newLines.forEach( async el  => {
         el.includes('{') ? el += '' : el.includes(';') ? el += '': el.includes('}') ? el += '' : el.includes(',') ? el += '': el += ';' ;
         let values = parseStr(el);
         if(el.includes('for (') || el.includes('for(') || el.includes('if(') ||el.includes('if (')){
@@ -98,25 +105,57 @@ function generateCode(program:any){
             if ( values[i] == 'f'){
                 values[i] = 'function'
             }
+            if (values[i] == 'imp@') {
+                // let impe = imp(values, values[i]);
+                // values[i] = impe
+                let impStatementLength = values.length;
+                let importForV = values[i + 1];
+                let importLocation = values[impStatementLength - 3]
+                let impLength = importLocation.length;
+                importLocation = importLocation.slice(1,(impLength - 1))
+                let ayImport = fs.readFileSync(importLocation, 'utf-8');
+              //  console.log(values[i],values[impStatementLength - 3])
+                values[i] = '';
+                values[impStatementLength - 3] = '';
+         
+              code += generateCode(ayImport);
+            //     let impStatementLength = values.length;
+            //     let importForV = values[i + 1];
+            //     let importLocation = values[impStatementLength - 3]
+            //     let impLength = importLocation.length;
+            //     importLocation = importLocation.slice(1,(impLength - 1))
+            //     let fileAy = Bun.file(`${process.cwd()}\\${importLocation}`);
+            //     let ayImport = await fileText(fileAy) ;
+            //   //  console.log(values[i],values[impStatementLength - 3])
+            //     values[i] = '';
+            //     values[impStatementLength - 3] = '';
+            //     code +=  generateCode(ayImport);
+              
+            }
         }
+       
+       
+        
         // switch case will only be used for error handling
-        switch(values[0]){
-            case 'l':
-                values[0] = 'let';
+        // switch(values[0]){
+        //     case 'l':
+        //         values[0] = 'let';
                 
-                break;
-            case 'print':
-                values[0] = `console.log(${values[1]});`;
-                values[1] = ' '
-                break; 
-            case 'f':
-                values[0] = `function`;
-                break;    
-            default:
-                values[0] = values[0];    
-        }
+        //         break;
+        //     case 'print':
+        //         values[0] = `console.log(${values[1]});`;
+        //         values[1] = ' '
+        //         break; 
+        //     case 'f':
+        //         values[0] = `function`;
+        //         break;    
+        //     default:
+        //         values[0] = values[0];    
+        // }
         code += values.join(" ");
-    })
+        
+   })
+    console.log(code)
     return code;
 }
 const math = `import { rand, round, PI, floor, exp, degToRad, radToDeg } from './math';\n`;
