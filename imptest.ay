@@ -1,2 +1,3 @@
-imp@ 'newtest.ay'
+imp@ 'd' from 'newtest.ay'
+print d
 // this imports and execute a file

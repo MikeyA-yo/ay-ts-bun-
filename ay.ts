@@ -77,6 +77,7 @@ function parseStatement(statement: any): string[] {
     let d = await f.text();
     return d;
   }
+  let exporters:string[] = [] 
 function generateCode(program:any){
      code = "";
      let lines = parse(program)
@@ -87,10 +88,10 @@ function generateCode(program:any){
         newLines[0] = ''
      }
     
-    newLines.forEach( async el  => {
-        el.includes('{') ? el += '' : el.includes(';') ? el += '': el.includes('}') ? el += '' : el.includes(',') ? el += '': el += ';' ;
+    newLines.forEach(  el  => {
+        el.includes('{') ? el += '' : el.includes(';') ? el += '': el.includes('}') ? el += '' : el.includes(',') ? el += '': el += ' ;' ;
         let values = parseStr(el);
-        if(el.includes('for (') || el.includes('for(') || el.includes('if(') ||el.includes('if (')){
+        if(el.includes('for (') || el.includes('for(') || el.includes('if(') ||el.includes('if (') || el.includes('exp@ f')){
             values = parser(el)
         }
         values[values.length] = '\n';
@@ -105,20 +106,35 @@ function generateCode(program:any){
             if ( values[i] == 'f'){
                 values[i] = 'function'
             }
+            if (values[i] == 'exp@'){
+                exporters.push(values[i + 2]) // exported variable name to list of exported in a file
+                values[i] = ''
+            }
             if (values[i] == 'imp@') {
                 // let impe = imp(values, values[i]);
                 // values[i] = impe
                 let impStatementLength = values.length;
-                let importForV = values[i + 1];
-                let importLocation = values[impStatementLength - 3]
+                // import for variable
+                let importForV = values[i + 1].slice(1,-1);
+                let endMark = impStatementLength - 3
+                // import location
+                let importLocation = values[endMark]
                 let impLength = importLocation.length;
                 importLocation = importLocation.slice(1,(impLength - 1))
-                let ayImport = fs.readFileSync(importLocation, 'utf-8');
-              //  console.log(values[i],values[impStatementLength - 3])
+                let ayImport = fs.readFileSync(process.cwd()+importLocation, 'utf-8');
+                let dFr = values[2]
+              //  console.log(importForV,importLocation,values)
                 values[i] = '';
-                values[impStatementLength - 3] = '';
-         
-              code += generateCode(ayImport);
+                values[i + 1] = ''
+                values[2] = ''
+                values[endMark] = '';
+               if( importForV == importLocation){
+                   code += generateCode(ayImport);
+               }else{
+                  //to do actually make sure the file isn't loaded and executed
+                code += generateCode(ayImport);
+                console.log(`Variables defined: ${exporters}`)
+               }
             //     let impStatementLength = values.length;
             //     let importForV = values[i + 1];
             //     let importLocation = values[impStatementLength - 3]
@@ -155,7 +171,6 @@ function generateCode(program:any){
         code += values.join(" ");
         
    })
-    console.log(code)
     return code;
 }
 const math = `import { rand, round, PI, floor, exp, degToRad, radToDeg } from './math';\n`;
