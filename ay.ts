@@ -6,7 +6,6 @@ const out = __dirname+'/out.js';
 const programName = Bun.argv[2];
 const bunfile = Bun.file(programName);
 const program = await bunfile.text();
-let code:string;
 
 // this function breaks the whole program into lines
 function parse(codes:any): string[]{
@@ -79,7 +78,7 @@ function parseStatement(statement: any): string[] {
   }
   let exporters:string[] = [] 
 function generateCode(program:any){
-     code = "";
+     let code = "";
      let lines = parse(program)
      let newLines = lines.filter(line => {
        return line !== '\r'
@@ -132,8 +131,19 @@ function generateCode(program:any){
                    code += generateCode(ayImport);
                }else{
                   //to do actually make sure the file isn't loaded and executed
-                code += generateCode(ayImport);
-                console.log(`Variables defined: ${exporters}`)
+                  let tempCode = generateCode(ayImport);
+                  tempCode += `module.exports = {${exporters}}\n`
+                  const math = `const {rand, round, PI, floor, exp, degToRad, radToDeg} = require('./math')\n`;
+                  const utils = `const {print, timer, Day, interval, read, write, appendFile, dirname} = require('./utils')\n`
+                  const AY = `const {AY} = require(__dirname +'/objects/AY');\n`;
+                  const exec= ` ${math} ${utils} ${AY}  try {\n${tempCode}}catch(e){\n console.error(e.message);\n}`
+                  const out2 = __dirname + '/out2.js'
+                  fs.writeFileSync(out2, exec)
+                  code += `const {${importForV}} = require("./out2.js")`
+                  if(!exporters.includes(importForV)){
+                      console.log(exporters)
+                      console.log('No exports found')
+                     }
                }
             //     let impStatementLength = values.length;
             //     let importForV = values[i + 1];

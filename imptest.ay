@@ -1,3 +1,4 @@
-imp@ 'd' from 'newtest.ay'
-print d
+timer(()=>{ print 5 }, 500)
+imp@ 'd' from '/newtest.ay'
+
 // this imports and execute a file
