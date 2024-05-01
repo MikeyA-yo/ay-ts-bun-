@@ -2,12 +2,14 @@
  const {print, timer, Day, interval, read, write, appendFile, dirname} = require('./utils')
  const {AY} = require(__dirname +'/objects/AY');
   try {
-for ( let i = 0; i < 10000; i++ ) { 
-console.log(i)   ; 
+for ( let i = 0; i < 20; i++ ) { 
+i % 3 == 0 ? console.log('fizz')   : i % 5 == 0 ? console.log('buzz')   : console.log(i)   ; 
 } 
- let data = 'imports n exports' ; 
- let ay = 'me' ; 
-module.exports = {data,ay}
+print(dirname(), AY.type(AY.isAy)) 
+console.log(AY.os)   ; 
+ let d = AY.os ; 
+let ds = AY ; 
+module.exports = {d}
 }catch(e){
  console.error(e.message);
 }

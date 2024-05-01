@@ -133,16 +133,19 @@ function generateCode(program:any){
                   //to do actually make sure the file isn't loaded and executed
                   let tempCode = generateCode(ayImport);
                   tempCode += `module.exports = {${exporters}}\n`
-                  const math = `const {rand, round, PI, floor, exp, degToRad, radToDeg} = require('./math')\n`;
-                  const utils = `const {print, timer, Day, interval, read, write, appendFile, dirname} = require('./utils')\n`
-                  const AY = `const {AY} = require(__dirname +'/objects/AY');\n`;
-                  const exec= ` ${math} ${utils} ${AY}  try {\n${tempCode}}catch(e){\n console.error(e.message);\n}`
-                  const out2 = __dirname + '/out2.js'
-                  fs.writeFileSync(out2, exec)
-                  code += `const {${importForV}} = require("./out2.js")`
+                 if(exporters.includes(importForV)){
+                    const math = `const {rand, round, PI, floor, exp, degToRad, radToDeg} = require('./math')\n`;
+                    const utils = `const {print, timer, Day, interval, read, write, appendFile, dirname} = require('./utils')\n`
+                    const AY = `const {AY} = require(__dirname +'/objects/AY');\n`;
+                    const exec= ` ${math} ${utils} ${AY}  try {\n${tempCode}}catch(e){\n console.error(e.message);\n}`
+                    const out2 = __dirname + '/out2.js'
+                    fs.writeFileSync(out2, exec)
+                    code += `const {${importForV}} = require("./out2.js")`
+                 }
                   if(!exporters.includes(importForV)){
-                      console.log(exporters)
-                      console.log('No exports found')
+                      console.log('exports: ',exporters);
+                      console.log('No exports found ', importForV);
+                      process.exit(1);
                      }
                }
             //     let impStatementLength = values.length;
