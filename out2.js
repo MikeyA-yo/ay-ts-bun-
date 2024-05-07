@@ -9,7 +9,7 @@ print(dirname(), AY.type(AY.isAy))
 console.log(AY.os)   ; 
  let d = AY.os ; 
 let ds = AY ; 
-module.exports = {d}
+module.exports = {d,d}
 }catch(e){
  console.error(e.message);
 }

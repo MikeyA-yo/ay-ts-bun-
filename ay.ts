@@ -2,6 +2,8 @@
 
 import type { BunFile } from "bun";
 import  * as fs from "fs"
+import { objectChecker } from "./error_handling/objectChCompiled";
+
 const out = __dirname+'/out.js';
 const programName = Bun.argv[2];
 const bunfile = Bun.file(programName);
@@ -191,6 +193,7 @@ const utils = `import { print, timer, Day, interval, read, write, appendFile, di
 const m = './objects'+'/'+'AY'
 const AY = `import {AY} from '${m}'\n`
 const exec= ` ${AY} ${math} ${utils}  try {\n${generateCode(program)}}catch(e){\n console.error(e.message);\n}`
+objectChecker(generateCode(program))
 await Bun.write(out, exec );
 await import(out);
 
