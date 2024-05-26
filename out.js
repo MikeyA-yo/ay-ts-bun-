@@ -4,7 +4,7 @@
   try {
 timer(()=>{ console.log(5)   }, 500) 
 const {d,  ds} = require("./out2.js")    
-console.log(d)   ; 
+console.log(ds.b)   ; 
 // this imports and execute a file ; 
 }catch(e){
  console.error(e.message);

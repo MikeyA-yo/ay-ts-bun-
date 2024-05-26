@@ -111,6 +111,8 @@ function generateCode(program: any) {
       ? (el += "")
       : el.includes(",")
       ? (el += "")
+      : el.includes(":")
+      ? (el += "")
       : (el += " ;");
     let values = parseStr(el);
     if (

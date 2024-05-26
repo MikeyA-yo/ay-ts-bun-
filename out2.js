@@ -3,12 +3,13 @@
  const {AY} = require(__dirname +'/objects/AY');
   try {
 for ( let i = 0; i < 20; i++ ) { 
-i % 3 == 0 ? console.log('fizz')   : i % 5 == 0 ? console.log('buzz')   : console.log(i)   ; 
+i % 3 == 0 ? console.log('fizz')   : i % 5 == 0 ? console.log('buzz')   : console.log(i)   
 } 
 print(dirname(), AY.type(AY.isAy)) 
-console.log(AY.os)   ; 
  let d = AY.os ; 
- let ds = AY ; 
+ let ds = { 
+b:'hey' 
+} 
 module.exports = {d,ds,d,ds}
 }catch(e){
  console.error(e.message);
