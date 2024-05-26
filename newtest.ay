@@ -4,4 +4,4 @@ for ( l i = 0; i < 20; i++){
 print(dirname(), AY.type(AY.isAy))
 print AY.os 
 exp@ l d = AY.os
-l ds = AY
+exp@ l ds = AY

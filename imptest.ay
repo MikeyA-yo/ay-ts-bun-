@@ -1,5 +1,5 @@
 timer(()=>{ print 5 }, 500)
-imp@ 'd' from '/newtest.ay'
+imp@ 'd, ds' from '/newtest.ay'
 print d
 
 // this imports and execute a file

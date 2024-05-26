@@ -8,8 +8,8 @@ i % 3 == 0 ? console.log('fizz')   : i % 5 == 0 ? console.log('buzz')   : consol
 print(dirname(), AY.type(AY.isAy)) 
 console.log(AY.os)   ; 
  let d = AY.os ; 
-let ds = AY ; 
-module.exports = {d,d}
+ let ds = AY ; 
+module.exports = {d,ds,d,ds}
 }catch(e){
  console.error(e.message);
 }
